@@ -1,0 +1,30 @@
+﻿@using LeadHornet.Models;
+@using MetOfficeDataPoint.Models;
+
+
+@model WeatherSummary
+
+<div class="row d-none" id="forecast_@Model.ForecastDay.ToString("yyyyMMdd")">
+    <div class="col weather-detailed img-thumbnail">
+        @{
+            foreach (Rep3Hourly rep in Model.Forecasts)
+            {
+                <div class="row">
+                    <div class="col-3">
+                        @((rep.MinutesAfterMidnight / 60).ToString() + ":00")
+                    </div>
+                    <div class="col-2">
+                        <i class="wi @weather.GetWeatherIcon(rep.WeatherType).Icon wi-fw"></i>
+                    </div>
+                    <div class="col-3">
+                        @rep.Temperature &deg;C
+                    </div>
+                    <div class="col-4">
+                        <i class="wi wi-wind wi-from-@rep.WindDirection.ToLower() wi-fw"></i>
+                        @(rep.WindSpeed)mph
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
